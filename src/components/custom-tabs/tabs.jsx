@@ -17,7 +17,7 @@ const Tabs = ({ tabsContent, onChange }) => {
                         onClick={() => handleOnClick(index)}
                         key={tabItem.label}
                     >
-                        <span className="label">{tabItem.label}</span>
+                        <span>{tabItem.label}</span>
                     </div>
                 ))}
             </div>
