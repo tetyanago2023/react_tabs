@@ -1,31 +1,40 @@
-import {useState} from "react";
+import React, { useState } from "react";
+
+const Tab = ({ label, content, onClick, isActive }) => (
+    <div
+        className={`tab-item ${isActive ? "active" : ""}`}
+        onClick={onClick}
+    >
+        <span>{label}</span>
+    </div>
+);
 
 const Tabs = ({ tabsContent, onChange }) => {
     const [currentTabIndex, setCurrentTabIndex] = useState(0);
 
-    const handleOnClick = (getCurrentIndex) => {
-        setCurrentTabIndex(getCurrentIndex);
-        onChange(getCurrentIndex);
-    }
+    const handleTabClick = (index) => {
+        setCurrentTabIndex(index);
+        onChange(index);
+    };
 
-    return(
+    return (
         <div className={"wrapper"}>
             <div className={"heading"}>
                 {tabsContent.map((tabItem, index) => (
-                    <div
-                        className={`tab-item ${currentTabIndex === index ? "active" : ""}`}
-                        onClick={() => handleOnClick(index)}
+                    <Tab
                         key={tabItem.label}
-                    >
-                        <span>{tabItem.label}</span>
-                    </div>
+                        label={tabItem.label}
+                        content={tabItem.content}
+                        onClick={() => handleTabClick(index)}
+                        isActive={currentTabIndex === index}
+                    />
                 ))}
             </div>
-            <div className={"content"} >
-                {tabsContent[currentTabIndex] && tabsContent[currentTabIndex].content}
+            <div className={"content"}>
+                {tabsContent[currentTabIndex]?.content}
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default Tabs;
